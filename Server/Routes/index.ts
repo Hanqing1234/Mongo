@@ -3,6 +3,9 @@ const router = express.Router();
 export default router;
 import fs from 'fs';
 
+//get a reference to the Game Model Class
+import Game from '../Models/game';
+
 /* GET home page. */
 router.get('/', function(req, res, next) 
 {
@@ -41,5 +44,22 @@ router.get('/services', function(req, res, next)
 router.get('/contact', function(req, res, next) 
 {
   res.render('index', { title: 'Contact Me', page: 'contact' });
+});
+
+/*Get games-list */
+router.get('/game-list', function(req, res, next)
+{
+  //db.game.find()
+  Game.find(function(err, gamesCollection)
+  {
+    if(err)
+    {
+      console.log(err);
+      res.end(err);
+    }
+
+    console.log(gamesCollection);
+  }
+  )
 });
 //module.exports = router;

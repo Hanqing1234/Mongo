@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 exports.default = router;
 const fs_1 = __importDefault(require("fs"));
+const game_1 = __importDefault(require("../Models/game"));
 router.get('/', function (req, res, next) {
     res.render('index', { title: 'Home', page: 'home' });
 });
@@ -28,5 +29,14 @@ router.get('/services', function (req, res, next) {
 });
 router.get('/contact', function (req, res, next) {
     res.render('index', { title: 'Contact Me', page: 'contact' });
+});
+router.get('/game-list', function (req, res, next) {
+    game_1.default.find(function (err, gamesCollection) {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        console.log(gamesCollection);
+    });
 });
 //# sourceMappingURL=index.js.map
