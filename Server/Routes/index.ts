@@ -46,6 +46,14 @@ router.get('/contact', function(req, res, next)
   res.render('index', { title: 'Contact Me', page: 'contact' });
 });
 
+// router.get('/game-list', function(req, res, next) 
+// {
+//   Game.find(function(err, gamesCollection){
+//     res.render('index', { title: 'Game List', page: 'games-list', games: gamesCollection });
+//   }
+// )});
+
+
 /*Get games-list */
 router.get('/game-list', function(req, res, next)
 {
@@ -58,7 +66,7 @@ router.get('/game-list', function(req, res, next)
       res.end(err);
     }
 
-    console.log(gamesCollection);
+    res.render('index', { title: 'Game List', page: 'game-list', games: gamesCollection });
   }
   )
 });
