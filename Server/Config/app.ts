@@ -14,12 +14,21 @@ import mongoose,{mongo } from 'mongoose';
 
 import indexRouter from '../../Server/Routes/index';
 
+//modules for authentication
+import session from 'express-session';
+import passport from 'passport';
+import passportLocal from 'passport-local';
+
+//authentication objects
+let localStrategy = passportLocal.Strategy; //alias
+
+
 const app = express();
 export default app; //export app as the default object for this module
 
 //DB configuration
 import * as DBConfig from './db';
-mongoose.connect(DBConfig.RemoteURI, {useNewUrlParser:true, useUnifiedTopology: true});
+mongoose.connect(DBConfig.LocalURI, {useNewUrlParser:true, useUnifiedTopology: true});
 
 const db = mongoose.connection; //alias for the mongoose connection
 db.on("error", function(){
