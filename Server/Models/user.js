@@ -22,6 +22,6 @@ const UserSchema = new Schema({
     collection: "users"
 });
 UserSchema.plugin(passport_local_mongoose_1.default);
-const Model = mongoose_1.default.model("Game", UserSchema);
+const Model = mongoose_1.default.model("Contact", UserSchema);
 exports.default = Model;
 //# sourceMappingURL=user.js.map

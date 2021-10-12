@@ -10,25 +10,33 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
-import mongoose,{mongo } from 'mongoose';
-
-import indexRouter from '../../Server/Routes/index';
+import mongoose,{ mongo } from 'mongoose';
 
 //modules for authentication
 import session from 'express-session';
 import passport from 'passport';
 import passportLocal from 'passport-local';
 
+//modules for cors
+import cors from 'cors';
+
 //authentication objects
 let localStrategy = passportLocal.Strategy; //alias
+import User from '../Models/user';
 
+//module for authority messaging and error management
+import flash from 'connect-flash';
+
+//attach router files
+import indexRouter from '../Routes/index';
+import gameRouter from '../Routes/game';
 
 const app = express();
 export default app; //export app as the default object for this module
 
 //DB configuration
 import * as DBConfig from './db';
-mongoose.connect(DBConfig.LocalURI, {useNewUrlParser:true, useUnifiedTopology: true});
+mongoose.connect(DBConfig.RemoteURI, {useNewUrlParser:true, useUnifiedTopology: true});
 
 const db = mongoose.connection; //alias for the mongoose connection
 db.on("error", function(){
@@ -50,8 +58,33 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../Public')));
 app.use(express.static(path.join(__dirname, '../../node_modules')));
 
-app.use('/', indexRouter);
+//add support for cors
+app.use(cors());
 
+//setup express session
+app.use(session({
+  secret: DBConfig.Secret,
+  saveUninitialized: false,
+  resave: false
+}));
+
+//initialize flash
+app.use(flash());
+
+//initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+//implement an Authority Strategy
+passport.use(User.createStrategy());
+
+// serialize and deserialize user data
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//Routing happens now, create routing through event handling
+app.use('/', indexRouter);
+app.use('/gamelist', gameRouter); //defines a new area of our website called game-list
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

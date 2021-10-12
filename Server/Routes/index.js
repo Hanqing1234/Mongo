@@ -6,37 +6,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 exports.default = router;
-const fs_1 = __importDefault(require("fs"));
-const game_1 = __importDefault(require("../Models/game"));
-router.get('/', function (req, res, next) {
-    res.render('index', { title: 'Home', page: 'home' });
-});
-router.get('/home', function (req, res, next) {
-    res.render('index', { title: 'Home', page: 'home' });
-});
-router.get('/about', function (req, res, next) {
-    let filePath = 'Public/Assets/pdf/Resume.pdf';
-    fs_1.default.readFile(filePath, function (err, data) {
-        res.contentType("application/pdf");
-        res.send(data);
-    });
-});
-router.get('/projects', function (req, res, next) {
-    res.render('index', { title: 'Projects', page: 'projects' });
-});
-router.get('/services', function (req, res, next) {
-    res.render('index', { title: 'Services', page: 'services' });
-});
-router.get('/contact', function (req, res, next) {
-    res.render('index', { title: 'Contact Me', page: 'contact' });
-});
-router.get('/game-list', function (req, res, next) {
-    game_1.default.find(function (err, gamesCollection) {
-        if (err) {
-            console.log(err);
-            res.end(err);
-        }
-        res.render('index', { title: 'Game List', page: 'game-list', games: gamesCollection });
-    });
-});
+const index_1 = require("../Controllers/index");
+router.get('/', index_1.DisplayHomePage);
+router.get('/home', index_1.DisplayHomePage);
+router.get('/about', index_1.DisplayAboutPage);
+router.get('/resume', index_1.DisplayResumePage);
+router.get('/projects', index_1.DisplayProjectsPage);
+router.get('/services', index_1.DisplayServicesPage);
+router.get('/contact', index_1.DisplayContactPage);
+router.get('/login', index_1.DisplayLoginPage);
+router.post('/login', index_1.ProcessLoginPage);
+router.get('/register', index_1.DisplayRegisterPage);
+router.post('/register', index_1.ProcessRegisterPage);
+router.get('/logout', index_1.ProcessLogoutPage);
 //# sourceMappingURL=index.js.map

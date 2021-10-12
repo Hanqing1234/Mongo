@@ -1,0 +1,33 @@
+<div class="row justify-content-lg-center g-3">
+    <h1><%= title %> Clothing </h1>
+
+    <form method="POST" class="col-lg-6 col-md-10 col-sm-10">
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="name">Name</span>
+            <input id="name" type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="Item Name"
+            name="name" value="<%= game.name %>" required>
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="name">Genre</span>
+            <input id="genre" type="text" class="form-control" placeholder="Genre" aria-label="Genre" aria-describedby="Item Genre"
+            name="genre" value="<%= game.genre %>" required>
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="name">Developer</span>
+            <input id="developer" type="text" class="form-control" placeholder="Developer" aria-label="developer" aria-describedby="Item Developer"
+            name="developer" value="<%= game.developer %>" required>
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="name">Cost</span>
+            <input id="cost" type="text" class="form-control" placeholder="Cost" aria-label="Cost" aria-describedby="Item Cost"
+            name="cost" value="<%= game.cost %>" required>
+        </div>   
+
+        <button type="submit" class="btn btn-primary" id="editButton"><i class="fas fa-edit fa-lg"></i> Edit</button>
+        
+    </form>
+</div>

@@ -23,11 +23,12 @@ const UserSchema = new Schema
 
 UserSchema.plugin(passportLocalMongoose);
 
-const Model = mongoose.model("Game", UserSchema as PassportLocalSchema);
+const Model = mongoose.model("Contact", UserSchema as PassportLocalSchema);
 
 declare global
 {
-    export type UserDocument = mongoose.Document & {
+    export type UserDocument = mongoose.Document & 
+    {
         _id: String,
         username: String,
         emailAddress: String,

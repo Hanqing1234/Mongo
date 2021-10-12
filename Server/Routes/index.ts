@@ -1,73 +1,50 @@
+/*
+* Author       : Hanqing Liu
+* Date         : Sep 20, 2021
+*Description   : Assignment 1 for COMP229
+*/
 import express from 'express';
 const router = express.Router();
 export default router;
-import fs from 'fs';
 
-//get a reference to the Game Model Class
-import Game from '../Models/game';
-
-/* GET home page. */
-router.get('/', function(req, res, next) 
-{
-  res.render('index', { title: 'Home', page: 'home' });
-});
+//instantiate an object of type index controller
+import {DisplayHomePage, DisplayAboutPage, DisplayProjectsPage,
+DisplayResumePage, DisplayContactPage, DisplayServicesPage, DisplayLoginPage, 
+DisplayRegisterPage, ProcessLoginPage, ProcessRegisterPage, ProcessLogoutPage } from '../Controllers/index';
 
 /* GET home page. */
-router.get('/home', function(req, res, next) 
-{
-  res.render('index', { title: 'Home', page: 'home' });
-});
+router.get('/', DisplayHomePage);
+
+/* GET home page. */
+router.get('/home', DisplayHomePage);
 
 /* GET about page. */
-router.get('/about', function(req, res, next) 
-{
-  let filePath = 'Public/Assets/pdf/Resume.pdf';
-  fs.readFile(filePath, function (err,data){
-    res.contentType("application/pdf");
-    res.send(data);
-  });
-});
+router.get('/about', DisplayAboutPage);
+
+/* GET resume page. */
+router.get('/resume', DisplayResumePage);
 
 /* GET projects page. */
-router.get('/projects', function(req, res, next) 
-{
-  res.render('index', { title: 'Projects', page: 'projects' });
-});
+router.get('/projects', DisplayProjectsPage);
 
 /* GET services page. */
-router.get('/services', function(req, res, next) 
-{
-  res.render('index', { title: 'Services', page: 'services' });
-});
+router.get('/services', DisplayServicesPage);
 
 /* GET contact page. */
-router.get('/contact', function(req, res, next) 
-{
-  res.render('index', { title: 'Contact Me', page: 'contact' });
-});
+router.get('/contact', DisplayContactPage);
 
-// router.get('/game-list', function(req, res, next) 
-// {
-//   Game.find(function(err, gamesCollection){
-//     res.render('index', { title: 'Game List', page: 'games-list', games: gamesCollection });
-//   }
-// )});
+/* GET - display login page - with /login. */
+router.get('/login', DisplayLoginPage);
 
+/* POST - process login page when user click login button. */
+router.post('/login', ProcessLoginPage);
 
-/*Get games-list */
-router.get('/game-list', function(req, res, next)
-{
-  //db.game.find()
-  Game.find(function(err, gamesCollection)
-  {
-    if(err)
-    {
-      console.log(err);
-      res.end(err);
-    }
+/* GET - display Register page - with /login. */
+router.get('/register', DisplayRegisterPage);
 
-    res.render('index', { title: 'Game List', page: 'game-list', games: gamesCollection });
-  }
-  )
-});
+/* POST - process Register page when user click login button. */
+router.post('/register', ProcessRegisterPage);
+
+/* GET - process logout page - with /logout. */
+router.get('/logout', ProcessLogoutPage);
 //module.exports = router;

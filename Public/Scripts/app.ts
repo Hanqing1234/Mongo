@@ -1,13 +1,27 @@
-//IIFE
-
+//IIFE -- Immediately Invoked Function Expression
 "use strict";
 
 (function(){
 
-    function Start(): void
+    function confirmDelete()
+    {
+      // confirm deletion
+      $("a.delete").on("click", function(event){
+        if(!confirm("Are you sure?"))
+        {
+          event.preventDefault();
+          location.href = '/gamelist';
+        }       
+      });
+    }
+
+    function Start():void
     {
         console.log("App Started");
+        
+        confirmDelete();  
     }
 
     window.addEventListener("load", Start);
+
 })();
