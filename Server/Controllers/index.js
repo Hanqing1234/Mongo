@@ -74,7 +74,8 @@ function ProcessRegisterPage(req, res, next) {
     let newUser = new user_1.default({
         username: req.body.username,
         emailAddress: req.body.emailAddress,
-        displayName: req.body.FirstName + " " + req.body.LastName
+        displayName: req.body.FirstName + " " + req.body.LastName,
+        password: req.body.password
     });
     user_1.default.register(newUser, req.body.password, (err) => {
         if (err) {

@@ -102,7 +102,8 @@ export function ProcessRegisterPage(req: Request, res: Response, next: NextFunct
     ({
         username: req.body.username,
         emailAddress: req.body.emailAddress,
-        displayName: req.body.FirstName + " " + req.body.LastName
+        displayName: req.body.FirstName + " " + req.body.LastName,
+        password: req.body.password
     });
 
     User.register(newUser, req.body.password, (err) =>

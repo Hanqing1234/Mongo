@@ -7,6 +7,7 @@ const UserSchema = new Schema
     username: String,
     emailAddress: String,
     displayName: String,
+    password: String,
     created:{
         type:Date,
         default: Date.now()
@@ -32,7 +33,8 @@ declare global
         _id: String,
         username: String,
         emailAddress: String,
-        displayName: String
+        displayName: String,
+        password: String,
     }
 }
 
